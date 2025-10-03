@@ -11,9 +11,9 @@ Figure 1, provides an example of the risk prediction at HOU1 when evaluated at 6
 4. Risk Score Actual is the ratio of the backlog to actual capacity. This value will not be known in production and is a model evaluation metric.
 5. Risk Score Predicted is the ratio of the backlog to forecasted capacity. This predicted risk score will be the input to SBD2 service for making padding decisions.
 
-| eval_dttm   | sbdt | actual_shipped_units   | forecasted_shipped_units   | backlog_sbdt   | risk_score_actual   | risk_score_predicted   |
-|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|
-|2025-09-15 06\:00\:00|2025-09-15 14\:30\:00|37468.0||11715|31.26|33.81|
+| eval_dttm          | sbdt            | actual_shipped_units   | forecasted_shipped_units   | backlog_sbdt   | risk_score_actual   | risk_score_predicted   |
+|:-------------------|:----------------|:-----------|:-----------|:-----------|:-----------|:-----------|
+|2025-09-15 06\:00\:00|2025-09-15 14\:30\:00|37468.0|34644.85|11715|31.26|33.81|
 |2025-09-15 06\:00\:00|2025-09-15 16\:00\:00|46886.0|44445.91|17928|38.23|40.33|
 |2025-09-15 06\:00\:00|2025-09-15 17\:00\:00|52657.0|49304.88|40494|76.90|82.13|
 
