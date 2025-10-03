@@ -38,7 +38,7 @@ h_(start-1) indicator of shift start -1 hour
 h_(start+1) indicator of shift start +1 hour
 s day or night shift flag
 
-# SBD_OTS_RISK
+# How to run the model
 1. Update the date ranges in configs.py
 2. Run preprocessor.py
 3. Run model_training.py
