@@ -2,14 +2,27 @@ import numpy as np
 import pandas as pd
 import os
 from sklearn.metrics import mean_squared_error, mean_absolute_error
+from typing import List
 
-def predict_and_write_out(test, model, regresor_list):
+def predict_and_write_out(test: pd.DataFrame, model, regresor_list: List):
+    """ write out model predictions in the desired format
+                    Args:
+                        test: test data
+                        model: trained model- must have a .predict method
+                        regressor_list: List of regressors to include
+                    Returns:
+                        None
+    """
     test_write = None
     for fc_name in test.fc_name.unique():
+        #make predictions by fc
         test_ = test.copy().query(f"fc_name == '{fc_name}'")
+        #regressors
         X_test = test_[regresor_list[2:]]
+        #actual y values
         y_test = test_['y']
 
+        #predictions
         y_pred = model.predict(X_test)
 
         rmse = mean_squared_error(y_test, y_pred, squared=False)

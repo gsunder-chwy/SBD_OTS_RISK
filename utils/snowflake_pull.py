@@ -1,8 +1,8 @@
 import pandas as pd
-from configs import connection_settings
+from configs import connection_settings_snowflake
 from snowflake.connector import connect
 
-def columns_to_lower(df):
+def columns_to_lower(df: pd.DataFrame):
     """Converts all column names in a DataFrame to lowercase.
 
     Args:
@@ -37,7 +37,7 @@ def execute_query_and_return_formatted_data(
     else:
         with open(f"{query_path}{query_name}.sql", "r") as query_file:
             query_to_execute = query_file.read()
-    with connect(**connection_settings) as connection:
+    with connect(**connection_settings_snowflake) as connection:
         df = pd.read_sql(query_to_execute, connection)
 
     df = columns_to_lower(df)

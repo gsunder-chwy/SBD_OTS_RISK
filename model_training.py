@@ -8,8 +8,10 @@ import os
 import shutil
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+#read the feature engineered data
 model_data = pd.read_csv(os.path.join(BASE_DIR, "data", "model_data.csv"))
 
+#encode categorical columns
 model_data = model_feature_gen(model_data)
 
 regresor_list = ['y', 'ds', 'hr',
@@ -39,7 +41,6 @@ if os.path.exists(folder_path):
 # Create a new folder
 os.makedirs(folder_path)
 
-predict_and_write_out(test,model,regresor_list)
+predict_and_write_out(test, model, regresor_list)
 
-#plot weekly predictions
 

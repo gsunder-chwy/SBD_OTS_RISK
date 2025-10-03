@@ -14,30 +14,38 @@ shipped_units["pred_shipped_units"] = np.where(shipped_units.pred_shipped_units<
 
 #for each fc and date-hr compute the actual risk and predicted risk score
 
-fc_name = "HOU1"
+fc_name: str = "HOU1"
 
-start_date = datetime.strptime("2025-09-15 06:00:00", "%Y-%m-%d %H:%M:%S")
-end_date_ = start_date + timedelta(days=7)
+start_date: datetime = datetime.strptime("2025-09-15 06:00:00", "%Y-%m-%d %H:%M:%S")
+end_date_: datetime = start_date + timedelta(days=7)
 
 while start_date <= end_date_:
+    #query data within a day
     end_date = start_date + timedelta(days=1)
     if fc_name in ('RNO1','PHX1'):
         end_date = end_date + timedelta(hours=1)
 
+    #query shipped units data for the FC and date range
     filtered_shipped_units = shipped_units.query(f"fc_name=='{fc_name}'").query(f"dttm >= '{start_date}' and dttm <= '{end_date}'")
 
+    #query backlog data for the FC and date range
     filtered_backlog_data = backlog_data.query(f"fc_name=='{fc_name}'").\
         query(f"batch_dttm >= '{start_date}' and batch_dttm <'{end_date}'").\
         query(f"ship_by_dttm<='{end_date}'")
 
+    #extarct hour from the datetime object
     filtered_backlog_data["hr"] = [datetime.strptime(dt,"%Y-%m-%d %H:%M:%S").hour for dt in filtered_backlog_data.batch_dttm]
 
+    #get the earliest batch in each hour
     batch_filter = tuple(filtered_backlog_data.groupby("hr").agg(batch_hour_start=("batch_dttm",min)).batch_hour_start.to_list())
 
+    #filter data for the first batch in each hour
     filtered_backlog_data = filtered_backlog_data.query(f"batch_dttm in {batch_filter}")
 
+    #drop duplciates
     filtered_backlog_data = filtered_backlog_data.drop_duplicates(["batch_dttm","ship_by_dttm"])
 
+    #list of unique sbdts
     unique_sbdts = filtered_backlog_data.query(f"ship_by_dttm>'{start_date}'").ship_by_dttm.unique()
 
     plot_data = None
@@ -57,7 +65,7 @@ while start_date <= end_date_:
                                           'backlog_sbdt':backlog_sbdt,
                                           'risk_score_actual':min(100,backlog_sbdt*100/actual_shipped_units),
                                           'risk_score_predicted':min(100,backlog_sbdt*100/predicted_shipped_units),
-                                        },index=[0])
+                                        }, index=[0])
             else:
                 row = pd.DataFrame({'eval_dttm':batch_dttm_,
                                           'sbdt': sbdt_,
@@ -66,8 +74,8 @@ while start_date <= end_date_:
                                           'backlog_sbdt':backlog_sbdt,
                                           'risk_score_actual':min(100,backlog_sbdt*100/(actual_shipped_units+1e-6)),
                                           'risk_score_predicted':min(100,backlog_sbdt*100/(predicted_shipped_units+1e-6)),
-                                        },index=[0])
-                plot_data = pd.concat([plot_data,row],ignore_index=True)
+                                        }, index=[0])
+                plot_data = pd.concat([plot_data,row], ignore_index=True)
     '''
     for batch_dttm in filtered_backlog_data.batch_dttm.unique():
         result = []

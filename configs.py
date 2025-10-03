@@ -1,6 +1,8 @@
 import os
+from typing import List, Dict, Tuple
 
-connection_settings = {
+#connection setting for snowflake
+connection_settings_snowflake: Dict = {
     'user': os.environ.get('vertica_user'),
     'password': os.environ.get('vertica_password'),
     'authenticator': 'https://chewy.okta.com',
@@ -12,7 +14,8 @@ connection_settings = {
     'session_parameters': {'session_timeout': '12000', }
 }
 
-connection_settings_postgres = {
+#connection setting for postgres
+connection_settings_postgres: Dict = {
     'host': "db-writer-dev-global-ors-simulations-db.scff.dev.chewy.com",
             # host: fll2forsdev01.chewy.local
     'port': 5432,
@@ -27,13 +30,16 @@ connection_settings_postgres = {
     'keepalives_count': 5,
 }
 
-start_date = "2025-07-01 06:00:00"
-end_date = "2025-09-27 06:00:00"
+#start date for train
+start_date: str = "2025-07-01 06:00:00"
+#end date for test
+end_date: str = "2025-09-27 06:00:00"
 
-fc_list = ('AVP1','CLT1','MCO1','MDT1','CFC1','DAY1','PHX1','AVP2','BNA1','MCI1','RNO1','HOU1')
+#FCs to make predictions for
+fc_list: Tuple = ('AVP1','CLT1','MCO1','MDT1','CFC1','DAY1','PHX1','AVP2','BNA1','MCI1','RNO1','HOU1')
 
 #{fc_name: [fc_type, day_shift_start, night_shift_start, fc_shift_type]}
-fc_details = {'AVP1': ['1G',6,18,"regular"],
+fc_details: Dict = {'AVP1': ['1G',6,18,"regular"],
               'AVP2': ['2G',6,18,"regular"],
               'MDT1': ['1G',6,18,"regular"],
               'BNA1': ['2G',6,18,"regular"],
@@ -47,7 +53,11 @@ fc_details = {'AVP1': ['1G',6,18,"regular"],
               'RNO1': ['2G',9,21,"regular"]
              }
 
-train_start_date = "2025-07-01 06:00:00"
-train_end_date = "2025-09-03 06:00:00"
-test_start_date = "2025-09-03 06:00:00"
-test_end_date = "2025-09-27 06:00:00"
+#start date for train
+train_start_date: str = "2025-07-01 06:00:00"
+#end date for train
+train_end_date: str = "2025-09-03 06:00:00"
+#start date for test
+test_start_date: str = "2025-09-03 06:00:00"
+#end date for test
+test_end_date: str = "2025-09-27 06:00:00"

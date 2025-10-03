@@ -4,7 +4,15 @@ import os
 import pandas as pd
 
 
-def query_shipped_units(dt_string_start,dt_string_end):
+def query_shipped_units(dt_string_start: str,dt_string_end: str):
+    """Queries the snowflake database for actual shipped units between start and end date.
+        Writes out the results in the data folder as a csv
+        Args:
+            dt_string_start: start date for query
+            dt_string_end: end date for query
+        Returns:
+            None
+    """
     shipped_units_data = None
     #get the dirname in SQL
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))

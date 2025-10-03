@@ -4,7 +4,15 @@ import pandas as pd
 import psycopg2
 
 
-def query_backlog_sbdt(dt_string_start, dt_string_end):
+def query_backlog_sbdt(dt_string_start: str, dt_string_end: str):
+    """Queries the snowflake database for backlog data between start and end date.
+                Writes out the results in the data folder as a csv
+                Args:
+                    dt_string_start: start date for query
+                    dt_string_end: end date for query
+                Returns:
+                    None
+    """
     sbdt_backlog = None
     # get the dirname in SQL
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))

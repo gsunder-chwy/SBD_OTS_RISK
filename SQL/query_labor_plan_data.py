@@ -5,7 +5,15 @@ import os
 import pandas as pd
 
 
-def query_labor_plan_data(dt_string_start, dt_string_end):
+def query_labor_plan_data(dt_string_start: str, dt_string_end: str):
+    """Queries the snowflake database for labor plan data between start and end date.
+            Writes out the results in the data folder as a csv
+            Args:
+                dt_string_start: start date for query
+                dt_string_end: end date for query
+            Returns:
+                None
+    """
     labor_plan_df = None
     # get the dirname in SQL
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -32,4 +40,4 @@ def query_labor_plan_data(dt_string_start, dt_string_end):
         else:
             labor_plan_df = pd.concat([labor_plan_df, labor_plan])
 
-    labor_plan_df.to_csv(os.path.join(BASE_DIR, "data", "labor_plan_data.csv"),index=False)
+    labor_plan_df.to_csv(os.path.join(BASE_DIR, "data", "labor_plan_data.csv"), index=False)
