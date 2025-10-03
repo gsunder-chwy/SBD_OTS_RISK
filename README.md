@@ -16,6 +16,7 @@ Figure 1, provides an example of the risk prediction at HOU1 when evaluated at 6
 |2025-09-15 06\:00\:00|2025-09-15 14\:30\:00|37468.0||11715|31.26|33.81|
 |2025-09-15 06\:00\:00|2025-09-15 16\:00\:00|46886.0|44445.91|17928|38.23|40.33|
 |2025-09-15 06\:00\:00|2025-09-15 17\:00\:00|52657.0|49304.88|40494|76.90|82.13|
+
 Figure 1: Risk Score predictions at HOU1 at 6:00 on 15th of September.
 
 
