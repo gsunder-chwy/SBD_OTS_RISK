@@ -27,31 +27,31 @@ $E[C_{fc,h}]=f(l_{shift,fc},tph_{shift,fc},l_{ot,shift,fc},l_{vot,shift,fc},fc,t
 
 where:
 
-$E[C_(fc,h)]$ forecasted mean ship capacity of fc at hr
+$E[C_{fc,h}]$ forecasted mean ship capacity of fc at hr
 
-l_(shift,fc) labor hours/units planned for the shift at the fc
+$l_{shift,fc}$ labor hours/units planned for the shift at the fc
 
-tph_(shift,fc) tph planned for the shift
+$tph_{shift,fc}$ tph planned for the shift
 
-l_(ot,shift,fc) overtime planned for the shift
+$l_{ot,shift,fc}$ overtime planned for the shift
 
-l_(vot,shift,fc) voluntary time share planned for the shift
+$l_{vot,shift,fc}$ voluntary time share planned for the shift
 
-fc FC being forecasted
+$fc$ FC being forecasted
 
-t_fc FC type 1G/2G
+$t_{fc}$ FC type 1G/2G
 
-w day of the week
+$w$ day of the week
 
-h hour of the day being forecasted
+$h$ hour of the day being forecasted
 
-h_start   indicator of shift start at FC
+$h_{start}$   indicator of shift start at FC
 
-h_(start-1) indicator of shift start -1 hour
+$h_{start-1}$ indicator of shift start -1 hour
 
-h_(start+1) indicator of shift start +1 hour
+$h_{start+1}$ indicator of shift start +1 hour
 
-s day or night shift flag
+$s$ day or night shift flag
 
 # How to run the model
 1. Update the date ranges in configs.py
