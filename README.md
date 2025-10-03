@@ -22,20 +22,35 @@ Figure 1: Risk Score predictions at HOU1 at 6:00 on 15th of September.
 
 ## Ship Capacity Forecast Model
 The following model was developed to forecast the ship capacity at an FC for each hour in the day.
+
 E[C_(hr,fc) ]=f(l_(shift,fc),tph_(shift,fc),l_(ot,shift,fc),l_(vot,shift,fc),fc,t_fc,w,h,h_(start,fc),h_(start-1,fc),h_(start+1,fc),s)
+
 where:
+
 E[C_(fc,hr) ] forecasted mean ship capacity of fc at hr
+
 l_(shift,fc) labor hours/units planned for the shift at the fc
+
 tph_(shift,fc) tph planned for the shift
+
 l_(ot,shift,fc) overtime planned for the shift
+
 l_(vot,shift,fc) voluntary time share planned for the shift
+
 fc FC being forecasted
+
 t_fc FC type 1G/2G
+
 w day of the week
+
 h hour of the day being forecasted
+
 h_start   indicator of shift start at FC
+
 h_(start-1) indicator of shift start -1 hour
+
 h_(start+1) indicator of shift start +1 hour
+
 s day or night shift flag
 
 # How to run the model
