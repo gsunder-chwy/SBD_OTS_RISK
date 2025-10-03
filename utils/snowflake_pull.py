@@ -1,6 +1,7 @@
 import pandas as pd
 from configs import connection_settings_snowflake
 from snowflake.connector import connect
+#code credits to Ida Jhonsson
 
 def columns_to_lower(df: pd.DataFrame):
     """Converts all column names in a DataFrame to lowercase.
