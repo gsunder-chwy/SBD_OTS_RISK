@@ -10,9 +10,14 @@ Figure 1, provides an example of the risk prediction at HOU1 when evaluated at 6
 3. Backlog SBDT is the backlog due out on or before the SBDT as reported by WMS to ORS. For example, 11715 units are due for the 14:30 CPT. Similarly, 17928 units are due out leading up to the 16:00 CPT which includes the 11k units from the 14:30 CPT. And 40494 units are due out at the 17:00 CPT which includes all the units due out at the 14:30 CPT and 16:00 CPT.
 4. Risk Score Actual is the ratio of the backlog to actual capacity. This value will not be known in production and is a model evaluation metric.
 5. Risk Score Predicted is the ratio of the backlog to forecasted capacity. This predicted risk score will be the input to SBD2 service for making padding decisions.
- 
+
+| eval_dttm   | sbdt | actual_shipped_units   | forecasted_shipped_units   | backlog_sbdt   | risk_score_actual   | risk_score_predicted   |
+|:-------|---:|-----------:|-----------:|-----------:|-----------:|-----------:|
+|2025-09-15 06\:00\:00|2025-09-15 14\:30\:00|37468.0||11715|31.26|33.81|
+|2025-09-15 06\:00\:00|2025-09-15 16\:00\:00|46886.0|44445.91|17928|38.23|40.33|
+|2025-09-15 06\:00\:00|2025-09-15 17\:00\:00|52657.0|49304.88|40494|76.90|82.13|
 Figure 1: Risk Score predictions at HOU1 at 6:00 on 15th of September.
-<img width="200" height="100" alt="image" src="https://github.com/user-attachments/assets/d1810c55-4c23-4dc1-86db-f301e5f493dd" />
+
 
 ## Ship Capacity Forecast Model
 The following model was developed to forecast the ship capacity at an FC for each hour in the day.
