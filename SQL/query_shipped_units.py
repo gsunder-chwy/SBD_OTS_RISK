@@ -2,9 +2,10 @@ from configs import fc_list
 from utils.snowflake_pull import execute_query_and_return_formatted_data
 import os
 import pandas as pd
+from datetime import datetime
 
 
-def query_shipped_units(dt_string_start: str,dt_string_end: str):
+def query_shipped_units(dt_string_start: str,dt_string_end: str, append: bool = False):
     """Queries the snowflake database for actual shipped units between start and end date.
         Writes out the results in the data folder as a csv
         Args:
@@ -38,5 +39,12 @@ def query_shipped_units(dt_string_start: str,dt_string_end: str):
             shipped_units_data = pd.concat([shipped_units_data, shipped_units_])
 
         print(f" Done reading PDD order-orderlines on {st} of size {shipped_units_.shape}")
+
+    if append:
+        shipped_units_data_ = pd.read_csv(os.path.join(BASE_DIR,"data","shipped_units_data.csv"))
+        shipped_units_data_["dttm"] = [datetime.strptime(d,"%Y-%m-%d %H:%M:%S") for d in shipped_units_data_.dttm]
+        shipped_units_data = pd.concat([shipped_units_data_,shipped_units_data])
+
+    shipped_units_data.drop_duplicates(subset=["fc_name","dttm"], keep="last", inplace=True)
 
     shipped_units_data.to_csv(os.path.join(BASE_DIR,"data","shipped_units_data.csv"), index=False)

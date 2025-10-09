@@ -26,7 +26,8 @@ def fill_na(st_dt: datetime,ed_dt: datetime,df: pd.DataFrame):
     date_time_hour_index = pd.date_range(st_dt, ed_dt, freq='H')
 
     for fc_name in fc_list:
-        df_ = df.query(f"fc_name=='{fc_name}'")
+        df_ = df.query(f"fc_name=='{fc_name}'").copy()
+        df_.drop_duplicates(subset=["fc_name","dttm"], inplace=True, keep="last")
         df_.set_index("dttm", inplace=True)
         #missing hours will have NA values
         df_ = df_.reindex(date_time_hour_index)

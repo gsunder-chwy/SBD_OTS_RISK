@@ -15,9 +15,10 @@ shipped_units["pred_shipped_units"] = np.where(shipped_units.pred_shipped_units<
 #for each fc and date-hr compute the actual risk and predicted risk score
 
 fc_name: str = "HOU1"
+days_to_increment = 0
 
-start_date: datetime = datetime.strptime("2025-09-15 06:00:00", "%Y-%m-%d %H:%M:%S")
-end_date_: datetime = start_date + timedelta(days=7)
+start_date: datetime = datetime.strptime("2025-10-08 06:00:00", "%Y-%m-%d %H:%M:%S")
+end_date_: datetime = start_date + timedelta(days=days_to_increment)
 
 while start_date <= end_date_:
     #query data within a day

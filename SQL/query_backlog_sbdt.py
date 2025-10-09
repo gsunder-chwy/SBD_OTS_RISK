@@ -2,9 +2,10 @@ from configs import connection_settings_postgres
 import os
 import pandas as pd
 import psycopg2
+from datetime import datetime
 
 
-def query_backlog_sbdt(dt_string_start: str, dt_string_end: str):
+def query_backlog_sbdt(dt_string_start: str, dt_string_end: str, append=False):
     """Queries the snowflake database for backlog data between start and end date.
                 Writes out the results in the data folder as a csv
                 Args:
@@ -51,5 +52,13 @@ def query_backlog_sbdt(dt_string_start: str, dt_string_end: str):
             sbdt_backlog = sbdt_backlog_
         else:
             sbdt_backlog = pd.concat([sbdt_backlog, sbdt_backlog_])
+
+    if append:
+        sbdt_backlog_ = pd.read_csv(os.path.join(BASE_DIR, "data", "sbdt_backlog.csv"))
+        sbdt_backlog_["ship_by_dttm"] = [datetime.strptime(d, "%Y-%m-%d %H:%M:%S") for d in sbdt_backlog_.ship_by_dttm]
+        sbdt_backlog_["batch_dttm"] = [datetime.strptime(d, "%Y-%m-%d %H:%M:%S") for d in sbdt_backlog_.batch_dttm]
+        sbdt_backlog = pd.concat([sbdt_backlog_,sbdt_backlog])
+        sbdt_backlog.drop_duplicates(subset=["batch_id", "fc_name", "ship_by_dttm", "batch_dttm"],
+                                     keep="last", inplace=True)
 
     sbdt_backlog.to_csv(os.path.join(BASE_DIR, "data", "sbdt_backlog.csv"), index=False)
