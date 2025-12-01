@@ -33,7 +33,7 @@ connection_settings_postgres: Dict = {
 #start date for train
 start_date: str = "2025-07-01 06:00:00"
 #end date for test
-end_date: str = "2025-10-07 06:00:00"
+end_date: str = "2025-11-24 06:00:00"
 
 #FCs to make predictions for
 fc_list: Tuple = ('AVP1','CLT1','MCO1','MDT1','CFC1','DAY1','PHX1','AVP2','BNA1','MCI1','RNO1','HOU1')
@@ -56,13 +56,13 @@ fc_details: Dict = {'AVP1': ['1G',6,18,"regular"],
 #start date for train
 train_start_date: str = "2025-07-01 06:00:00"
 #end date for train
-train_end_date: str = "2025-09-03 06:00:00"
+train_end_date: str = "2025-10-31 06:00:00"
 #start date for test
-test_start_date: str = "2025-09-03 06:00:00"
+test_start_date: str = "2025-10-31 06:00:00"
 #end date for test
-test_end_date: str = "2025-10-09 06:00:00"
+test_end_date: str = "2025-12-01 06:00:00"
 
 #append dates
-append_start_date: str = "2025-10-07 06:00:00"
+append_start_date: str = "2025-11-28 06:00:00"
 #end date for test
-append_end_date: str = "2025-10-09 06:00:00"
+append_end_date: str = "2025-12-01 06:00:00"

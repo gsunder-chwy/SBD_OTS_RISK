@@ -17,7 +17,7 @@ shipped_units["pred_shipped_units"] = np.where(shipped_units.pred_shipped_units<
 fc_name: str = "HOU1"
 days_to_increment = 0
 
-start_date: datetime = datetime.strptime("2025-10-08 06:00:00", "%Y-%m-%d %H:%M:%S")
+start_date: datetime = datetime.strptime("2025-11-29 06:00:00", "%Y-%m-%d %H:%M:%S")
 end_date_: datetime = start_date + timedelta(days=days_to_increment)
 
 while start_date <= end_date_:
