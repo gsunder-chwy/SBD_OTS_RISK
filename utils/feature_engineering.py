@@ -39,7 +39,16 @@ def fc_feature_gen(labor_plan_df: pd.DataFrame, shipped_units_data: pd.DataFrame
     #day_shift
     labor_plan_df["day_shift_flag_fc"] = [1 if fc_details[fc_name][3]=='day_shift' else 0 for fc_name in labor_plan_df.fc_name]
 
-    shipped_units_data["dt"] = [dt.date() if dt.hour>=6 else (dt - timedelta(days=1)).date() for dt in shipped_units_data.dttm]
+    shipped_units_data['day_shift_start'] = [fc_details[fc_name][1] for fc_name in shipped_units_data.fc_name]
+
+    #shipped_units_data["dt"] = [dt.date() if dt.hour>=6 else (dt - timedelta(days=1)).date() for dt in shipped_units_data.dttm]
+    # offset for Labor day being 6-6am FC local time
+    shipped_units_data["dt"] = [dt.date() if dt.hour >= day_shift_start else (dt - timedelta(days=1)).date() for dt, day_shift_start
+                                in
+                                zip(shipped_units_data.dttm, shipped_units_data.day_shift_start)]
+
+    shipped_units_data.drop(columns='day_shift_start', inplace=True)
+
     shipped_units_data = shipped_units_data.merge(labor_plan_df, on = ["fc_name","dt"])
 
     #if hour is >=day_shift_start and <night_shift_start then day_shift_labor
@@ -48,6 +57,9 @@ def fc_feature_gen(labor_plan_df: pd.DataFrame, shipped_units_data: pd.DataFrame
                               1, 0)
     #if not day_shit hour and fc is not dayshift only
     night_shift_flag_hr = np.where(np.logical_and(day_shift_flag_hr==0,shipped_units_data.day_shift_flag_fc==0),1,0)
+
+    shipped_units_data['day_shift_flag_hr'] = day_shift_flag_hr
+    shipped_units_data['night_shift_flag_hr'] = night_shift_flag_hr
 
     #an hour in the day is either day or night shift
     shipped_units_data["planned_units_shift"] = shipped_units_data.ob_planned_units_dayshift*day_shift_flag_hr + \
@@ -79,6 +91,10 @@ def fc_feature_gen(labor_plan_df: pd.DataFrame, shipped_units_data: pd.DataFrame
     #flag for hour following shift start
     shipped_units_data["shift_start_foll_hr"] = np.where(np.logical_or(shipped_units_data.hr - 1 == shipped_units_data.day_shift_start,
                                                   shipped_units_data.hr - 1 == shipped_units_data.night_shift_start),1,0)
+
+    # typically 10 hour shift
+    shipped_units_data['planned_units_shift_mean'] = shipped_units_data['planned_units_shift'] / 10.
+    shipped_units_data['planned_hours_shift_mean'] = shipped_units_data['planned_hours_shift'] / 10.
 
     return shipped_units_data, labor_plan_df
 

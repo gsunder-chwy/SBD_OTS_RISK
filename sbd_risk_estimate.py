@@ -3,24 +3,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 import os
+from SQL.query_backlog_sbdt import query_backlog_sbdt
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 #load data
 shipped_units = pd.read_csv(os.path.join(BASE_DIR, "results", "predicted_shipped_units.csv"))
-backlog_data = pd.read_csv(os.path.join(BASE_DIR, "data", "sbdt_backlog.csv"))
+#backlog_data = pd.read_csv(os.path.join(BASE_DIR, "data", "sbdt_backlog.csv"))
 
 #censor negative values to zero
 shipped_units["pred_shipped_units"] = np.where(shipped_units.pred_shipped_units<0,0.,shipped_units.pred_shipped_units)
 
 #for each fc and date-hr compute the actual risk and predicted risk score
 
-fc_name: str = "HOU1"
+fc_name: str = "RNO1"
 days_to_increment = 0
 
-start_date: datetime = datetime.strptime("2025-11-29 06:00:00", "%Y-%m-%d %H:%M:%S")
+start_date: datetime = datetime.strptime("2025-12-09 06:00:00", "%Y-%m-%d %H:%M:%S")
 end_date_: datetime = start_date + timedelta(days=days_to_increment)
 
 while start_date <= end_date_:
+
+    #query backlog date
+    query_backlog_sbdt([start_date.strftime("%Y-%m-%d %H:%M:%S")],
+                       [(start_date+timedelta(days=1)).strftime("%Y-%m-%d %H:%M:%S")])
+    backlog_data = pd.read_csv(os.path.join(BASE_DIR, "data", "sbdt_backlog.csv"))
+
     #query data within a day
     end_date = start_date + timedelta(days=1)
     if fc_name in ('RNO1','PHX1'):

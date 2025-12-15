@@ -24,7 +24,7 @@ def model_feature_gen(df: pd.DataFrame):
 
     #encode categorical variables
     df["fc_code"] = df["fc_name"].astype("category").cat.codes
-    df["fc_type_code"] = df["fc_code"].astype("category").cat.codes
+    df["fc_type_code"] = df["fc_type"].astype("category").cat.codes
 
     return df
 
