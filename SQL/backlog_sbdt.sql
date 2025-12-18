@@ -1,11 +1,13 @@
 with batches as(
                     select batch_id,
-                           batch_dttm::timestamp as batch_dttm,
-                           batchno,
-                           orsitemtype
-                    from orssimsdb.ors_simulations.ors2_batches
-                    where batch_dttm::timestamp BETWEEN '{st}' and '{end}' and
-                    orsitemtype = 'N'
+                           batch_dttm::timestamp as batch_dttm --,
+                    from orssimsdb.ors_simulations.ors2_athena_batch_ids
+                    where batch_dttm::timestamp BETWEEN '{st}' and '{end}'
+                    --       batchno,
+                    --       orsitemtype
+                    --from orssimsdb.ors_simulations.ors2_batches
+                    --where batch_dttm::timestamp BETWEEN '{st}' and '{end}' and
+                    --orsitemtype = 'N'
                     ),
 batch_backlog as (
       select distinct sb.batch_id,
