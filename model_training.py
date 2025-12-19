@@ -31,7 +31,7 @@ train,test = test_train_split(train_start_date, train_end_date, test_start_date,
 X_train = train[regresor_list[2:]]
 y_train = train['y']
 #'reg:squarederror' 'reg:absoluteerror' reg:pseudohubererror 'count:poisson'
-model = xgb.XGBRegressor(objective='reg:squarederror', n_estimators=500, max_depth=100, learning_rate=0.1,
+model = xgb.XGBRegressor(objective='reg:absoluteerror', n_estimators=1000, max_depth=100, learning_rate=0.1,
                          subsample=0.5, min_child_weight = 50,
                          alpha=1, colsample_bytree=0.9, grow_policy='lossguide')
 model.fit(X_train, y_train)

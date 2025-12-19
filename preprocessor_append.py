@@ -41,4 +41,4 @@ shipped_units_data = fill_na(start_date, end_date, shipped_units_data)
 feature_engineering(shipped_units_data, labor_plan_data)
 
 # query backlog_sbdt info
-query_backlog_sbdt(dt_string_start, dt_string_end)
+#query_backlog_sbdt(dt_string_start, dt_string_end)

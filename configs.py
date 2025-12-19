@@ -56,13 +56,13 @@ fc_details: Dict = {'AVP1': ['1G',6,18,"regular"],
 #start date for train
 train_start_date: str = "2025-08-01 06:00:00"
 #end date for train
-train_end_date: str = "2025-10-31 06:00:00"
+train_end_date: str = "2025-11-30 05:00:00"
 #start date for test
-test_start_date: str = "2025-10-31 06:00:00"
+test_start_date: str = "2025-11-30 06:00:00"
 #end date for test
-test_end_date: str = "2025-12-12 06:00:00"
+test_end_date: str = "2025-12-18 06:00:00"
 
 #append dates
-append_start_date: str = "2025-12-04 06:00:00"
+append_start_date: str = "2025-12-12 06:00:00"
 #end date for test
-append_end_date: str = "2025-12-10 06:00:00"
+append_end_date: str = "2025-12-18 06:00:00"
