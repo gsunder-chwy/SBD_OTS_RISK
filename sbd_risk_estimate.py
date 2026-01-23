@@ -18,7 +18,7 @@ shipped_units["pred_shipped_units"] = np.where(shipped_units.pred_shipped_units<
 fc_name: str = "AVP1"
 days_to_increment = 7
 
-start_date: datetime = datetime.strptime("2025-12-10 06:00:00", "%Y-%m-%d %H:%M:%S")
+start_date: datetime = datetime.strptime("2025-12-05 06:00:00", "%Y-%m-%d %H:%M:%S")
 end_date_: datetime = start_date + timedelta(days=days_to_increment)
 
 while start_date <= end_date_:
@@ -84,6 +84,13 @@ while start_date <= end_date_:
                                           'risk_score_predicted':min(100,backlog_sbdt*100/(predicted_shipped_units+1e-6)),
                                         }, index=[0])
                 plot_data = pd.concat([plot_data,row], ignore_index=True)
+
+                #To Do:
+                # Query the shipped units current future sql for day-1 to get the shipped units by aging status
+                # Roll up the shipped units to aggregate by CPT
+                # Compute percentages by CPT
+                # Use the percentages to estimate the expected shipped units by CPT for today
+                # If Expected Shipped Units - Backlog Units <= 0 the CPT is at Risk
     '''
     for batch_dttm in filtered_backlog_data.batch_dttm.unique():
         result = []
